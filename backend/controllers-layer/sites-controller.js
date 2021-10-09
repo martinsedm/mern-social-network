@@ -1,13 +1,11 @@
-
-
-
-
-//TODO
 /** Example of Controller By Or Hasson **/
 const express = require("express");
 const logic = require("../business-logic-layer/sites-logic");
 const SiteModel = require("../models/site-model");
 const router = express.Router();
+
+
+
 
 
 // GET http://localhost:3001/api/areas
