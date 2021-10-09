@@ -1,9 +1,8 @@
 global.config = require(process.env.NODE_ENV === "production" ? "./config-prod.json" : "./config-dev.json");
-import express from "express";
+const express  = require("express");
 const  {readdirSync} = require("fs");
 const morgan = require('morgan');
 const cors = require("cors");
-const authRoute = require("./routes/auth");
 
 require("dotenv").config();
 const server = express();
