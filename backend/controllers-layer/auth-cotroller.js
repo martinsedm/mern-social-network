@@ -14,7 +14,8 @@ export const register = async (req, res) =>{
     if(!secret) return res.status(400).send("Answer is required");
 
     //verify the user not exist.
-    const exist = await authLogic.getExistUserAsync();
+    const exist = await authLogic.getExistUserAsync(email);
+    console.log(exist);
     if(exist) return res.status(400).send("Email already in use.");
 
     //hash salted the password.
@@ -23,13 +24,12 @@ export const register = async (req, res) =>{
     const user = new UserModel({name, email, password: hashedPassword, secret});
     try{
         await authLogic.addUserAsync(user);
-        console.log("REGISTERED USER =>" + user);
         return res.json({
             ok: true,
         })
     }
     catch(err){
-        console.log("REGISTER FAILES => ", err);
+        console.log("REGISTER FAILED => ", err);
         return res.status(400).send("Error occurred. Please try again.")
     }
 

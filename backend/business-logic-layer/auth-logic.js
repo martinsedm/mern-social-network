@@ -1,8 +1,9 @@
 require("../data-access-layer/dal");
 const  UserModel = require("../models/user-model");
 
-function getExistUserAsync(email) {
+ function getExistUserAsync(email) {
     return UserModel.findOne({ email }).exec();
+
 }
 
 function addUserAsync(user){

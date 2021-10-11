@@ -4,7 +4,7 @@ const Nav = () =>{
         return(
             <nav className="nav d-flex justify-content-between" style={{backgroundColor: 'red'}}>
                     <Link href="/">
-                        <a className="nav-link text-light">הבית</a>
+                        <a className="nav-link text-light logo">HASSON</a>
                     </Link>
                     <Link href="/register">
                         <a className="nav-link text-light">הרשמה</a>
