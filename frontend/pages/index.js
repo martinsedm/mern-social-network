@@ -1,8 +1,11 @@
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useContext } from "react";
+import { UserContext } from "../context";
 
 const Home = () =>{
+    const [state, setState] = useContext(UserContext);
+
     return(
-        <div className="container">
+        <div className="container-fluid">
             <div className="row">
                 <div className="col">
                     <h1 className="display-1 text-center">דף הבית</h1>

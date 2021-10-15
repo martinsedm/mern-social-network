@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Modal } from "antd";
 import Link from "next/link";
-import {SyncOutlined} from '@ant-design/icons';
 import AuthForm from "../components/forms/AuthForm";
+import {UserContext} from "../context"
+import {useRouter} from "next/router";
 
 const Register = () =>{
     const [name, setName] = useState('');
@@ -14,11 +15,15 @@ const Register = () =>{
     const [ok, setOk] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const [state] = useContext(UserContext);
+    const router = useRouter();
+
+
     const handleSubmit = async (e) =>{
         e.preventDefault();
         try {
             setLoading(true);
-            const {data} = await axios.post(`${process.env.NEXT_PUBLIC_API}/register`, {
+            const {data} = await axios.post(`/register`, {
                 name,
                 email,
                 password,
@@ -36,6 +41,8 @@ const Register = () =>{
             setLoading(false);
         }
     }
+
+    if(state && state.token) router.push('/');
 
     return(
         <div className="container-fluid">
@@ -57,7 +64,7 @@ const Register = () =>{
                     setPassword={setPassword}
                     secret={secret}
                     setSecret={setSecret}
-                    loading
+                    loading={loading}
                    />
                 </div>
             </div>
@@ -74,6 +81,15 @@ const Register = () =>{
                             <a className="btn btn-primary btn-sm">Login</a>
                         </Link>
                     </Modal>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                    <p className="text-center"> רשום כבר? {" "}
+                    <Link href="/login">
+                        <a>התחבר</a>
+                    </Link>
+                    </p>
                 </div>
             </div>
         </div>

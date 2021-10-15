@@ -10,10 +10,12 @@ const AuthForm = ({
     setPassword,
     secret,
     setSecret,
-    loading
+    loading,
+    page
                   }) =>{
         return(
             <form onSubmit={handleSubmit}>
+                {page !== 'login' && (
                 <div className="form-group p-2">
                     <small>
                         <label className="text-muted">השם שלך</label>
@@ -24,7 +26,7 @@ const AuthForm = ({
                         type="text"
                         className="form-control"
                         placeholder="שם מלא"/>
-                </div>
+                </div> )}
                 <div className="form-group p-2">
                     <small>
                         <label className="text-muted">האימייל שלך</label>
@@ -47,6 +49,7 @@ const AuthForm = ({
                         className="form-control"
                         placeholder="סיסמא"/>
                 </div>
+                { page !== "login" && <>
                 <div className="form-group p-2">
                     <small>
                         <label className="text-muted">בחר שאלה</label>
@@ -70,8 +73,9 @@ const AuthForm = ({
                         placeholder="תרשום את התשובה שלך כאן"
                     />
                 </div>
+                </>}
                 <div className="form-group p-2">
-                    <button disabled={!name || !email || !password || !secret} className="btn btn-primary col-12">
+                    <button disabled={page === "login" ?  !email || !password : !name || !email || !password || !secret} className="btn btn-primary col-12">
                         {loading ? <SyncOutlined spin className="py-1"/> : 'הרשמה'}
                     </button>
                 </div>

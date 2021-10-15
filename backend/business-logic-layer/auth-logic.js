@@ -10,7 +10,14 @@ function addUserAsync(user){
     return user.save();
 }
 
+function findUserByIdAsync(_id){
+    return UserModel.findById(_id)
+}
+
+
+
 module.exports = {
     getExistUserAsync,
-    addUserAsync
+    addUserAsync,
+    findUserByIdAsync
 };

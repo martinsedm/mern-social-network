@@ -9,12 +9,12 @@ const server = express();
 
 server.use(cors());
 server.use(morgan("dev"));
-
+server.use(express.urlencoded({ extended: true}))
 server.use(express.json({limit: "6mb"}));
 
 // autoload routes.
 readdirSync('./routes').map((route)=> server.use("/api",require(`./routes/${route}`)));
 
-const port = process.env.PORT || 3001;
+const port = config.PORT || 3001;
 
 server.listen(port, () => console.log(`Listening to port ${port}...`));

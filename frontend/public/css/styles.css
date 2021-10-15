@@ -13,11 +13,8 @@
     text-shadow: 2px 2px navy;
 }
 
-
-
-
-img{
-    width: 500px;
+.active{
+    background-color: darkred;
 }
 
 

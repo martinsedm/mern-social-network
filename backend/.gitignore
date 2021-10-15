@@ -45,3 +45,4 @@ testem.log
 Thumbs.db
 config-dev.json
 config-prod.json
+.env
