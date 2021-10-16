@@ -1,16 +1,15 @@
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Modal } from "antd";
+import { Modal, Button } from "antd";
 import Link from "next/link";
-import AuthForm from "../components/forms/AuthForm";
-import {UserContext} from "../context"
-import {useRouter} from "next/router";
+import ForgotPasswordForm from "../components/forms/ForgotPasswordForm";
+import { useRouter } from "next/router";
+import {UserContext} from "../context";
 
-const Register = () =>{
-    const [name, setName] = useState('');
+const forgetPassword = () => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
     const [secret, setSecret] = useState('');
     const [ok, setOk] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -19,35 +18,36 @@ const Register = () =>{
     const router = useRouter();
 
 
-    const handleSubmit = async (e) =>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            // console.log(name, email, password, secret);
             setLoading(true);
-            const {data} = await axios.post(`/register`, {
-                name,
+            const { data } = await axios.post(`/forgot-password`, {
                 email,
-                password,
-                secret
+                newPassword,
+                secret,
             });
 
-            if(data.error){
+            console.log("forgot password res => ", data);
+
+            if (data.error) {
                 toast.error(data.error);
                 setLoading(false);
             }
-            else{
-                setName("");
+
+            if (data.success) {
                 setEmail("");
-                setPassword("");
+                setNewPassword("");
                 setSecret("");
-                setOk(data.ok);
+                setOk(true);
                 setLoading(false);
             }
-        }
-        catch(err){
-            toast.error(err.response.data);
+        } catch (err) {
+            console.log(err);
             setLoading(false);
         }
-    }
+    };
 
     if(state && state.token) router.push('/');
 
@@ -55,24 +55,22 @@ const Register = () =>{
         <div className="container-fluid">
             <div className="row py-5 text-light bg-default-image">
                 <div className="col text-center">
-                    <h1>הרשמה</h1>
+                    <h1>שחזור סיסמא</h1>
                 </div>
             </div>
 
             <div className="row py-5 justify-content-center">
                 <div className="col-md-6 offset-md-3">
-                   <AuthForm
-                    handleSubmit={handleSubmit}
-                    name={name}
-                    setName={setName}
-                    email={email}
-                    setEmail={setEmail}
-                    password={password}
-                    setPassword={setPassword}
-                    secret={secret}
-                    setSecret={setSecret}
-                    loading={loading}
-                   />
+                    <ForgotPasswordForm
+                        email={email}
+                        setEmail={setEmail}
+                        newPassword={newPassword}
+                        setNewPassword={setNewPassword}
+                        secret={secret}
+                        setSecret={setSecret}
+                        loading={loading}
+                        handleSubmit={handleSubmit}
+                    />
                 </div>
             </div>
             <div className="row">
@@ -83,24 +81,15 @@ const Register = () =>{
                         onCancel={() => setOk(false)}
                         footer={null}
                     >
-                        <p>You have successfully registered!</p>
+                        <p>יצירת הסיסמא החדשה הושלמה ואתה יכול להתחבר איתה.</p>
                         <Link href="/login">
                             <a className="btn btn-primary btn-sm">Login</a>
                         </Link>
                     </Modal>
                 </div>
             </div>
-            <div className="row">
-                <div className="col">
-                    <p className="text-center"> רשום כבר? {" "}
-                    <Link href="/login">
-                        <a>התחבר</a>
-                    </Link>
-                    </p>
-                </div>
-            </div>
         </div>
     )
 }
 
-export default Register;
+export default forgetPassword;

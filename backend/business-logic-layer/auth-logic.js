@@ -6,6 +6,15 @@ const  UserModel = require("../models/user-model");
 
 }
 
+function getExistUserByEmailAndSecretAsync(email,secret) {
+    return UserModel.findOne({ email, secret}).exec();
+
+}
+
+function findUserByIdAndUpdateAsync(_id, newHashedPassword){
+     return UserModel.findByIdAndUpdate(_id, {password: newHashedPassword});
+}
+
 function addUserAsync(user){
     return user.save();
 }
@@ -19,5 +28,7 @@ function findUserByIdAsync(_id){
 module.exports = {
     getExistUserAsync,
     addUserAsync,
-    findUserByIdAsync
+    findUserByIdAsync,
+    getExistUserByEmailAndSecretAsync,
+    findUserByIdAndUpdateAsync
 };

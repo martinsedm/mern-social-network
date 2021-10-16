@@ -24,14 +24,21 @@ const Login = () => {
                 email,
                 password,
             });
-            //save token on context
-            setState({
-                user: data.user,
-                token: data.token
-            });
-            // save token on local storage
-            window.localStorage.setItem('auth',JSON.stringify(data));
-            router.push("/");
+
+            if(data.error){
+                toast.error(data.error)
+                setLoading(false)
+            }
+            else{
+                //save token on context
+                setState({
+                    user: data.user,
+                    token: data.token
+                });
+                // save token on local storage
+                window.localStorage.setItem('auth',JSON.stringify(data));
+                router.push("/");
+            }
         }
         catch(err){
             toast.error(err.response.data);
@@ -67,6 +74,15 @@ const Login = () => {
                     <p className="text-center"> לא רשום עדיין? {" "}
                         <Link href="/register">
                             <a>הירשם</a>
+                        </Link>
+                    </p>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                    <p className="text-center"> שכחת סיסמא? {" "}
+                        <Link href="/forgot-password">
+                            <a>שכחת סיסמא</a>
                         </Link>
                     </p>
                 </div>
