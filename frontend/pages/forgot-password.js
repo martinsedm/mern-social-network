@@ -55,7 +55,7 @@ const forgetPassword = () => {
         <div className="container-fluid">
             <div className="row py-5 text-light bg-default-image">
                 <div className="col text-center">
-                    <h1>שחזור סיסמא</h1>
+                    <h1>Reset Password</h1>
                 </div>
             </div>
 
@@ -81,7 +81,7 @@ const forgetPassword = () => {
                         onCancel={() => setOk(false)}
                         footer={null}
                     >
-                        <p>יצירת הסיסמא החדשה הושלמה ואתה יכול להתחבר איתה.</p>
+                        <p>You created a new password successfully. Now you can login.</p>
                         <Link href="/login">
                             <a className="btn btn-primary btn-sm">Login</a>
                         </Link>

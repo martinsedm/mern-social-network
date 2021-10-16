@@ -52,7 +52,7 @@ const Login = () => {
         <div className="container-fluid">
             <div className="row py-5 text-light bg-default-image">
                 <div className="col text-center">
-                    <h1>התחברות</h1>
+                    <h1>Login</h1>
                 </div>
             </div>
 
@@ -71,18 +71,18 @@ const Login = () => {
             </div>
             <div className="row">
                 <div className="col">
-                    <p className="text-center"> לא רשום עדיין? {" "}
+                    <p className="text-center"> Still not registered? {" "}
                         <Link href="/register">
-                            <a>הירשם</a>
+                            <a>Register</a>
                         </Link>
                     </p>
                 </div>
             </div>
             <div className="row">
                 <div className="col">
-                    <p className="text-center"> שכחת סיסמא? {" "}
+                    <p className="text-center"> Did you forgot password? {" "}
                         <Link href="/forgot-password">
-                            <a>שכחת סיסמא</a>
+                            <a>Forgot Password</a>
                         </Link>
                     </p>
                 </div>

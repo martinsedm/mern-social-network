@@ -18,7 +18,6 @@ function MyApp({Component, pageProps}) {
                                 hideProgressBar={true}
                                 newestOnTop={false}
                                 closeOnClick
-                                rtl={true}
                                 pauseOnFocusLoss
                                 draggable/>
                 <Component {...pageProps}/>

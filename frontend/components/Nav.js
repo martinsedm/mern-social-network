@@ -29,15 +29,15 @@ const Nav = () =>{
                         <Link href="/user/dashboard">
                             <a className={`nav-link text-light ${current === "/user/dashboard" && "active"}`}>{state && state.user && state.user.name}</a>
                         </Link>
-                    <a onClick={logout} className="nav-link text-light">התנתק</a>
+                    <a onClick={logout} className="nav-link text-light">Logout</a>
                     </>
                 ): (
                     <>
                     <Link href="/login">
-                        <a className={`nav-link text-light ${current === "/login" && "active"}`}>התחברות</a>
+                        <a className={`nav-link text-light ${current === "/login" && "active"}`}>Login</a>
                     </Link>
                         <Link href="/register">
-                            <a className={`nav-link text-light ${current === "/register" && "active"}`}>הרשמה</a>
+                            <a className={`nav-link text-light ${current === "/register" && "active"}`}>Register</a>
                         </Link>
                     </>
                     )}

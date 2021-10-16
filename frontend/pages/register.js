@@ -55,7 +55,7 @@ const Register = () =>{
         <div className="container-fluid">
             <div className="row py-5 text-light bg-default-image">
                 <div className="col text-center">
-                    <h1>הרשמה</h1>
+                    <h1>register</h1>
                 </div>
             </div>
 
@@ -92,9 +92,9 @@ const Register = () =>{
             </div>
             <div className="row">
                 <div className="col">
-                    <p className="text-center"> רשום כבר? {" "}
+                    <p className="text-center"> Already registered? {" "}
                     <Link href="/login">
-                        <a>התחבר</a>
+                        <a>Login</a>
                     </Link>
                     </p>
                 </div>

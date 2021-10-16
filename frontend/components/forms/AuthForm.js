@@ -18,50 +18,49 @@ const AuthForm = ({
                 {page !== 'login' && (
                 <div className="form-group p-2">
                     <small>
-                        <label className="text-muted">השם שלך</label>
+                        <label className="text-muted">Your Name</label>
                     </small>
                     <input
                         value={name}
                         onChange={(e)=> setName(e.target.value)}
                         type="text"
                         className="form-control"
-                        placeholder="שם מלא"/>
+                        placeholder="Full Name"/>
                 </div> )}
                 <div className="form-group p-2">
                     <small>
-                        <label className="text-muted">האימייל שלך</label>
+                        <label className="text-muted">Your Email</label>
                     </small>
                     <input
                         value={email}
                         onChange={(e)=> setEmail(e.target.value)}
                         type="email"
                         className="form-control"
-                        placeholder="מייל"/>
+                        placeholder="Email"/>
                 </div>
                 <div className="form-group p-2">
                     <small>
-                        <label className="text-muted">הסיסמא שלך</label>
+                        <label className="text-muted">Your Password</label>
                     </small>
                     <input
                         value={password}
                         onChange={(e)=> setPassword(e.target.value)}
                         type="password"
                         className="form-control"
-                        placeholder="סיסמא"/>
+                        placeholder="Password"/>
                 </div>
                 { page !== "login" && <>
                 <div className="form-group p-2">
                     <small>
-                        <label className="text-muted">בחר שאלה</label>
+                        <label className="text-muted">Select a Question</label>
                     </small>
                     <select className="form-control">
-                        <option>מה הצבע האהוב עלייך?</option>
-                        <option>מה שם של החבר הכי טוב שלך?</option>
-                        <option>מה שם חיית המחמד הראשונה שלך?</option>
-                        <option>מה שם העיר שבה נולדת?</option>
+                        <option>What is your Favorite Color?</option>
+                        <option>Who is your best friend?</option>
+                        <option>Where city did you born?</option>
                     </select>
                     <small className="form-text text-muted">
-                        אתה יכול להשתמש בזה על מנת לאתחל את הסיסמא במידה ושכחת אותה.
+                        You can use it later for reset your password.
                     </small>
                 </div>
                 <div className="form-group p-2">
@@ -70,14 +69,14 @@ const AuthForm = ({
                         onChange={(e)=> setSecret(e.target.value)}
                         type="text"
                         className="form-control"
-                        placeholder="תרשום את התשובה שלך כאן"
+                        placeholder="Write here your answer"
                     />
                 </div>
                 </>}
                 <div className="form-group p-2">
                     <button disabled={page === "login" ?  !email || !password || loading :
                         !name || !email || !password || !secret || loading } className="btn btn-primary col-12">
-                        {loading ? <SyncOutlined spin className="py-1"/> : 'הרשמה'}
+                        {loading ? <SyncOutlined spin className="py-1"/> : 'Register'}
                     </button>
                 </div>
             </form>
