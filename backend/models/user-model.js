@@ -25,8 +25,8 @@ const UserSchema = mongoose.Schema({
     },
     about: {},
     photo: String,
-    following: [{type: Schema.ObjectId, ref: "User"}],
-    followers: [{type: Schema.ObjectId, ref: "User"}]
+    following: [{type: Schema.ObjectId, ref: "UserModel"}],
+    followers: [{type: Schema.ObjectId, ref: "UserModel"}]
 }, { versionKey: false, timestamps: true});
 
 const UserModel = mongoose.model("UserModel", UserSchema, "users");
