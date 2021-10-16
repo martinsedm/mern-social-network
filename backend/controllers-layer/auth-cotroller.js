@@ -1,4 +1,4 @@
-const  UserModel = require("../models/user-model");
+const  User = require("../models/user-model");
 const logic = require("../business-logic-layer/auth-logic");
 const { hashPassword, comparePassword } = require("../helpers/auth-helper.js");
 import jwt from "jsonwebtoken";
@@ -34,7 +34,7 @@ export const register = async (req, res) =>{
     //hash salted the password.
     const hashedPassword = await hashPassword(password);
 
-    const user = new UserModel({name, email, password: hashedPassword, secret});
+    const user = new User({name, email, password: hashedPassword, secret});
     try{
         await logic.addUserAsync(user);
         return res.json({

@@ -1,18 +1,18 @@
 require("../data-access-layer/dal");
-const  UserModel = require("../models/user-model");
+const  User = require("../models/user-model");
 
  function getExistUserAsync(email) {
-    return UserModel.findOne({ email }).exec();
+    return User.findOne({ email }).exec();
 
 }
 
 function getExistUserByEmailAndSecretAsync(email,secret) {
-    return UserModel.findOne({ email, secret}).exec();
+    return User.findOne({ email, secret}).exec();
 
 }
 
 function findUserByIdAndUpdateAsync(_id, newHashedPassword){
-     return UserModel.findByIdAndUpdate(_id, {password: newHashedPassword});
+     return User.findByIdAndUpdate(_id, {password: newHashedPassword});
 }
 
 function addUserAsync(user){
@@ -20,7 +20,7 @@ function addUserAsync(user){
 }
 
 function findUserByIdAsync(_id){
-    return UserModel.findById(_id)
+    return User.findById(_id)
 }
 
 

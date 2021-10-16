@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const {Schema} = require("mongoose");
 const {ObjectId} = mongoose.Schema;
 
 const PostSchema = mongoose.Schema({
@@ -9,26 +8,26 @@ const PostSchema = mongoose.Schema({
     },
     postedBy: {
         type: ObjectId,
-        ref: "UserModel"
+        ref: "User"
     },
     image: {
         url: String,
         public_id: String
     },
-    likes: [{type: ObjectId, ref: "UserModel"}],
+    likes: [{type: ObjectId, ref: "user"}],
     comments: [
         {
             text: String,
             created: {type: Date, default: Date.now},
             postedBy: {
                 type: ObjectId,
-                ref: "UserModel"
+                ref: "User"
             },
 
         }
     ]
 }, { versionKey: false, timestamps: true});
 
-const PostModel = mongoose.model("PostModel", PostSchema, "posts");
+const Post = mongoose.model("Post", PostSchema, "posts");
 
-module.exports = PostModel;
+module.exports = Post;
