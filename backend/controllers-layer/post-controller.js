@@ -29,6 +29,7 @@ export const createPost = async (req, res) =>{
  export const uploadImage = async (req,res) =>{
     try{
         const result = await cloudinary.uploader.upload(req.files.image.path)
+        console.log(result);
         res.json({
             url: result.secure_url,
             public_id: result.public_id
@@ -38,3 +39,25 @@ export const createPost = async (req, res) =>{
         console.log(err);
     }
  }
+
+
+
+ export const postsByUser = async(req, res) =>{
+    try{
+        const posts = await logic.findAllPostsAsync();
+        res.json(posts);
+    }
+    catch(err){
+        console.log(err);
+    }
+ }
+
+
+export const userPost = async (req, res) => {
+    try {
+        const post = await logic.findPostsByUserAsync(req.params._id);
+        res.json(post);
+    } catch (err) {
+        console.log(err);
+    }
+};

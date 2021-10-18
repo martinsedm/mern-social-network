@@ -83,17 +83,16 @@ export const login = async(req, res) =>{
     }
 }
 
-export const currentUser = async(req,res)  =>{
-    try{
+export const currentUser = async (req, res) => {
+    try {
         const user = await logic.findUserByIdAsync(req.user._id);
         // res.json(user);
-        res.json({ok:true});
-    }
-    catch(e){
-        console.log(e);
+        res.json({ ok: true });
+    } catch (err) {
+        console.log(err);
         res.sendStatus(400);
     }
-}
+};
 
 export const forgotPassword = async (req, res, next) => {
     console.log(req.body);
@@ -109,10 +108,10 @@ export const forgotPassword = async (req, res, next) => {
             error: "Secret is required",
         });
     }
-    let user = await logic.getExistUserByEmailAndSecretAsync(email, secret);
+    const user = await logic.getExistUserByEmailAndSecretAsync(email, secret);
     if (!user) {
         return res.json({
-            error: "We cant verify you with those details",
+            error: "We can't verify you with those details",
         });
     }
 

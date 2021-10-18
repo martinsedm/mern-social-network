@@ -7,48 +7,45 @@ import { UserContext } from "../context";
 import {useRouter} from 'next/router';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+
     const [state, setState] = useContext(UserContext);
 
     const router = useRouter();
 
-
-
-    const handleSubmit = async (e) =>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             setLoading(true);
-            const {data} = await axios.post(`/login`, {
+            const { data } = await axios.post(`/login`, {
                 email,
                 password,
             });
 
-            if(data.error){
-                toast.error(data.error)
-                setLoading(false)
-            }
-            else{
-                //save token on context
+            if (data.error) {
+                toast.error(data.error);
+                setLoading(false);
+            } else {
+                // update context
                 setState({
                     user: data.user,
-                    token: data.token
+                    token: data.token,
                 });
-                // save token on local storage
-                window.localStorage.setItem('auth',JSON.stringify(data));
+                // save in local storage
+                window.localStorage.setItem("auth", JSON.stringify(data));
                 router.push("/");
             }
-        }
-        catch(err){
+        } catch (err) {
             toast.error(err.response.data);
             setLoading(false);
         }
-    }
+    };
 
-    if(state && state.token) router.push('/');
+    if (state && state.token) router.push("/");
 
-    return(
+    return (
         <div className="container-fluid">
             <div className="row py-5 text-light bg-default-image">
                 <div className="col text-center">
@@ -56,7 +53,7 @@ const Login = () => {
                 </div>
             </div>
 
-            <div className="row py-5 justify-content-center">
+            <div className="row py-5">
                 <div className="col-md-6 offset-md-3">
                     <AuthForm
                         handleSubmit={handleSubmit}
@@ -65,30 +62,33 @@ const Login = () => {
                         password={password}
                         setPassword={setPassword}
                         loading={loading}
-                        page= "login"
+                        page="login"
                     />
                 </div>
             </div>
+
             <div className="row">
                 <div className="col">
-                    <p className="text-center"> Still not registered? {" "}
+                    <p className="text-center">
+                        Not yet registered?{" "}
                         <Link href="/register">
                             <a>Register</a>
                         </Link>
                     </p>
                 </div>
             </div>
+
             <div className="row">
                 <div className="col">
-                    <p className="text-center"> Did you forgot password? {" "}
+                    <p className="text-center">
                         <Link href="/forgot-password">
-                            <a>Forgot Password</a>
+                            <a className="text-danger">Forgot password</a>
                         </Link>
                     </p>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Login;

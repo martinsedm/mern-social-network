@@ -4,6 +4,7 @@ const ReactQuill = dynamic(()=> import("react-quill"), {ssr: false});
 import { CameraOutlined, LoadingOutlined } from "@ant-design/icons";
 import "react-quill/dist/quill.snow.css"
 
+
 const CreatePostForm = ({content, setContent, postSubmit, handleImage, uploading, image}) =>{
 
     return (
