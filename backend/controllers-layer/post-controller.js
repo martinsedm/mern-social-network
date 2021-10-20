@@ -55,9 +55,34 @@ export const createPost = async (req, res) =>{
 
 export const userPost = async (req, res) => {
     try {
-        const post = await logic.findPostsByUserAsync(req.params._id);
+        const post = await logic.findPostsByIdAsync(req.params._id);
         res.json(post);
     } catch (err) {
         console.log(err);
     }
 };
+
+export const updatePost = async (req, res) => {
+    try {
+        const post = await logic.findPostByIdAndUpdateAsync(req.params._id, req.body);
+        res.json(post);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const deletePost = async (req, res) =>{
+    try{
+        const post = await logic.findPostByIdAndDeleteAsync(req.params._id);
+        //remove the image from cloudinary.
+        if(post.image && post.image.public_id){
+            const image = await cloudinary.uploader.destroy(post.image.public_id);
+        }
+        res.json({ok: true});
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+

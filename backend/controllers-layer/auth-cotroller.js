@@ -86,7 +86,6 @@ export const login = async(req, res) =>{
 export const currentUser = async (req, res) => {
     try {
         const user = await logic.findUserByIdAsync(req.user._id);
-        // res.json(user);
         res.json({ ok: true });
     } catch (err) {
         console.log(err);

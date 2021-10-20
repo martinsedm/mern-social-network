@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 function connectAsync() {
     return new Promise((resolve, reject) => {
 
-        // Connect options - prevent console warnings:
         const options = { useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex: true };
 
         // Connect to MongoDB:
