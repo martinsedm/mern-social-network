@@ -11,8 +11,12 @@ function getExistUserByEmailAndSecretAsync(email,secret) {
 
 }
 
-function findUserByIdAndUpdateAsync(_id, newHashedPassword){
+function findUserByIdAndUpdatePasswordAsync(_id, newHashedPassword){
      return User.findByIdAndUpdate(_id, {password: newHashedPassword});
+}
+
+function findUserByIdAndUpdateDataAsync(_id, data){
+     return User.findByIdAndUpdate(_id, data, {new: true});
 }
 
 function addUserAsync(user){
@@ -30,5 +34,6 @@ module.exports = {
     addUserAsync,
     findUserByIdAsync,
     getExistUserByEmailAndSecretAsync,
-    findUserByIdAndUpdateAsync
+    findUserByIdAndUpdatePasswordAsync,
+    findUserByIdAndUpdateDataAsync
 };

@@ -23,18 +23,18 @@ const UserRoute = ({ children }) => {
   };
 
   process.browser &&
-  state === null &&
-  setTimeout(() => {
-    getCurrentUser();
-  }, 1000);
+    state === null &&
+    setTimeout(() => {
+      getCurrentUser();
+    }, 1000);
 
   return !ok ? (
-      <SyncOutlined
-          spin
-          className="d-flex justify-content-center display-1 text-primary p-5"
-      />
+    <SyncOutlined
+      spin
+      className="d-flex justify-content-center display-1 text-primary p-5"
+    />
   ) : (
-      <> {children}</>
+    <> {children}</>
   );
 };
 

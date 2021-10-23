@@ -2,6 +2,7 @@ const  User = require("../models/user-model");
 const logic = require("../business-logic-layer/auth-logic");
 const { hashPassword, comparePassword } = require("../helpers/auth-helper.js");
 import jwt from "jsonwebtoken";
+import { nanoid } from "nanoid";
 
 export const register = async (req, res) =>{
 
@@ -34,7 +35,7 @@ export const register = async (req, res) =>{
     //hash salted the password.
     const hashedPassword = await hashPassword(password);
 
-    const user = new User({name, email, password: hashedPassword, secret});
+    const user = new User({name, email, password: hashedPassword, secret, username: nanoid()});
     try{
         await logic.addUserAsync(user);
         return res.json({
@@ -94,7 +95,6 @@ export const currentUser = async (req, res) => {
 };
 
 export const forgotPassword = async (req, res, next) => {
-    console.log(req.body);
     const { email, newPassword, secret } = req.body;
     // validation
     if (!newPassword || newPassword.length < 6) {
@@ -116,7 +116,7 @@ export const forgotPassword = async (req, res, next) => {
 
     try {
         const hashed = await hashPassword(newPassword);
-        await logic.findUserByIdAndUpdateAsync(user._id, hashed);
+        await logic.findUserByIdAndUpdatePasswordAsync(user._id, hashed);
         return res.json({
             success: "Your password were changed.",
         });
@@ -126,5 +126,45 @@ export const forgotPassword = async (req, res, next) => {
             error: "Something wrong. Try again.",
         });
     }
-};
+}
 
+export const profileUpdate = async (req, res) => {
+    try {
+
+        const data = {};
+
+        if (req.body.username) {
+            data.username = req.body.username;
+        }
+        if (req.body.about) {
+            data.about = req.body.about;
+        }
+        if (req.body.name) {
+            data.name = req.body.name;
+        }
+        if (req.body.password) {
+            if (req.body.password.length < 6) {
+                return res.json({
+                    error: "Password is required and should be min 6 characters long",
+                });
+            } else {
+                data.password = await hashPassword(req.body.password);
+            }
+        }
+        if (req.body.secret) {
+            data.secret = req.body.secret;
+        }
+        if (req.body.image) {
+            data.image = req.body.image;
+        }
+        let user = await logic.findUserByIdAndUpdateDataAsync(req.user._id, data)
+        user.password = undefined;
+        user.secret = undefined;
+        res.json(user);
+    } catch (err) {
+        if (err.code == 11000) {
+            return res.json({ error: "Duplicate username" });
+        }
+        console.log(err);
+    }
+};
