@@ -168,3 +168,17 @@ export const profileUpdate = async (req, res) => {
         console.log(err);
     }
 };
+
+export const findPeople = async (req, res) =>{
+    try {
+        const user = await logic.findUserByIdAsync(req.user._id);
+        // user following
+        let following = user.following;
+        following.push(req.user._id);
+        const people = await logic.findUsersForFollowingAsync(following);
+        res.json(people);
+    }
+    catch (err){
+        console.log(err)
+    }
+}

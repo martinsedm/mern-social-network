@@ -2,10 +2,11 @@ import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../context";
 import UserRoute from "../../components/routes/UserRoute";
 import PostForm from "../../components/forms/PostForm";
-import { useRouter, userRouter } from "next/router";
+import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import PostList from "../../components/cards/PostList";
+import People from "../../components/cards/People";
 
 const Home = () => {
   const [state, setState] = useContext(UserContext);
@@ -13,14 +14,18 @@ const Home = () => {
   const [content, setContent] = useState("");
   const [image, setImage] = useState({});
   const [uploading, setUploading] = useState(false);
-  // posts
+
   const [posts, setPosts] = useState([]);
+  const [people, setPeople] = useState([]);
 
   // route
   const router = useRouter();
 
   useEffect(() => {
-    if (state && state.token) fetchUserPosts();
+    if (state && state.token) {
+      fetchUserPosts();
+      findPeople();
+    }
   }, [state && state.token]);
 
   const fetchUserPosts = async () => {
@@ -31,6 +36,16 @@ const Home = () => {
       console.log(err);
     }
   };
+
+  const findPeople = async()=>{
+    try {
+      const {data} = await axios.get("/find-people");
+      setPeople(data);
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
 
   const postSubmit = async (e) => {
     e.preventDefault();
@@ -104,7 +119,9 @@ const Home = () => {
           </div>
 
 
-          <div className="col-md-4">Sidebar</div>
+          <div className="col-md-4">
+           <People people={people}/>
+          </div>
         </div>
       </div>
     </UserRoute>

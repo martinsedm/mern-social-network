@@ -27,6 +27,10 @@ function findUserByIdAsync(_id){
     return User.findById(_id)
 }
 
+function findUsersForFollowingAsync(following){
+     return User.find({_id: {$nin: following}}).select('-password -secret').limit(10);
+}
+
 
 
 module.exports = {
@@ -35,5 +39,6 @@ module.exports = {
     findUserByIdAsync,
     getExistUserByEmailAndSecretAsync,
     findUserByIdAndUpdatePasswordAsync,
-    findUserByIdAndUpdateDataAsync
+    findUserByIdAndUpdateDataAsync,
+    findUsersForFollowingAsync
 };
