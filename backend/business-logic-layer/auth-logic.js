@@ -12,11 +12,11 @@ function getExistUserByEmailAndSecretAsync(email,secret) {
 }
 
 function findUserByIdAndUpdatePasswordAsync(_id, newHashedPassword){
-     return User.findByIdAndUpdate(_id, {password: newHashedPassword});
+     return User.findByIdAndUpdate(_id, {password: newHashedPassword}).exec();
 }
 
 function findUserByIdAndUpdateDataAsync(_id, data){
-     return User.findByIdAndUpdate(_id, data, {new: true});
+     return User.findByIdAndUpdate(_id, data, {new: true}).exec();
 }
 
 function addUserAsync(user){
@@ -24,12 +24,26 @@ function addUserAsync(user){
 }
 
 function findUserByIdAsync(_id){
-    return User.findById(_id)
+    return User.findById(_id).exec()
 }
 
 function findUsersForFollowingAsync(following){
-     return User.find({_id: {$nin: following}}).select('-password -secret').limit(10);
+     return User.find({_id: {$nin: following}}).select('-password -secret').limit(10).exec();
 }
+
+function addFollowingAsync(_id, user_id){
+    return User.findByIdAndUpdate(_id,{
+        $addToSet: {following: user_id},
+    }).select("-password -secret").exec()
+}
+
+function addFollowerAsync(user_id, _id){
+    return User.findByIdAndUpdate(user_id,{
+        $addToSet: {followers: _id},
+    },{new: true}).exec()
+}
+
+
 
 
 
@@ -40,5 +54,7 @@ module.exports = {
     getExistUserByEmailAndSecretAsync,
     findUserByIdAndUpdatePasswordAsync,
     findUserByIdAndUpdateDataAsync,
-    findUsersForFollowingAsync
+    findUsersForFollowingAsync,
+    addFollowingAsync,
+    addFollowerAsync
 };

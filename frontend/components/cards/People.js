@@ -4,7 +4,7 @@ import moment from 'moment';
 import {useRouter} from "next/router";
 import {UserContext} from "../../context";
 
-const People = ({people}) => {
+const People = ({people, handleFollow}) => {
     const [state] = useContext(UserContext);
     const router = useRouter();
 
@@ -13,7 +13,7 @@ const People = ({people}) => {
             return user.image.url;
         }
         else{
-            return '/images/default.jpg';
+            return '/images/logo.png';
         }
     };
 
@@ -28,7 +28,8 @@ const People = ({people}) => {
                           title={
                               <div className="d-flex justify-content-between">
                                       {user.username}
-                                      <span className="text-primary">Follow</span>
+                                      <span onClick={()=>handleFollow(user)}
+                                            className="text-primary pointer">Follow</span>
                               </div>}/>
               </List.Item>
           )}/>

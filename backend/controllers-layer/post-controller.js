@@ -1,5 +1,6 @@
 import PostModel from "../models/post-model";
 import logic from "../business-logic-layer/post-logic";
+import auth_logic from "../business-logic-layer/auth-logic";
 const cloudinary = require("cloudinary");
 
 cloudinary.config({
@@ -79,6 +80,21 @@ export const deletePost = async (req, res) =>{
             const image = await cloudinary.uploader.destroy(post.image.public_id);
         }
         res.json({ok: true});
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+export const newsFeed = async (req, res) =>{
+    try {
+        const user = await auth_logic.findUserByIdAsync(req.user._id);
+        let following = user.following;
+        following.push(req.user._id);
+
+        const posts = await logic.findPostByInFollowingsAsync(following);
+
+        res.json(posts);
     }
     catch(err){
         console.log(err);

@@ -27,10 +27,18 @@ function findPostByIdAndDeleteAsync(_id){
     return Post.findByIdAndDelete(_id);
 }
 
+function findPostByInFollowingsAsync(following){
+    return Post.find({postedBy: { $in: following } })
+        .populate('postedBy','_id name image')
+        .sort({createdAt: -1}).
+        limit(10).exec();
+}
+
 module.exports = {
     addPostAsync,
     findPostsByIdAsync,
     findAllPostsAsync,
     findPostByIdAndUpdateAsync,
-    findPostByIdAndDeleteAsync
+    findPostByIdAndDeleteAsync,
+    findPostByInFollowingsAsync
 };

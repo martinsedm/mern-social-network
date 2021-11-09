@@ -1,3 +1,5 @@
+import {addFollowerAsync} from "../business-logic-layer/auth-logic";
+
 const  User = require("../models/user-model");
 const logic = require("../business-logic-layer/auth-logic");
 const { hashPassword, comparePassword } = require("../helpers/auth-helper.js");
@@ -182,3 +184,27 @@ export const findPeople = async (req, res) =>{
         console.log(err)
     }
 }
+
+// middleware
+export const addFollower = async (req, res, next) =>{
+    try{
+        const _id = req.body._id;
+        const user_id = req.user._id;
+        const user = await logic.addFollowerAsync(_id,user_id );
+        next();
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+export const userFollow = async(req,res) =>{
+    try {
+        const user = await logic.addFollowingAsync(req.user._id,req.body._id)
+        res.json(user);
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
